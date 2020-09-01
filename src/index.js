@@ -10,7 +10,7 @@ import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary';
 ReactDOM.render(
     <Provider store={store}>
         <ErrorBoundary>
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <App />
             </BrowserRouter>
         </ErrorBoundary>
