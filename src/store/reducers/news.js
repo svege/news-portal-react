@@ -4,7 +4,7 @@ import {
     FETCH_NEWS_SUCCESS,
 } from '../actions/actionTypes';
 
-const initialState = {
+export const initialState = {
     news: null,
     isLoading: false,
     errorMessage: '',
