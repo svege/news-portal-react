@@ -75,7 +75,7 @@ class Profile extends Component {
 Profile.propTypes = {
     id: number.isRequired,
     isLoading: bool.isRequired,
-    errorMessage: string.isRequired,
+    errorMessage: string,
     profile: shape({
         city: string.isRequired,
         languages: arrayOf(string.isRequired).isRequired,
@@ -91,6 +91,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
     profile: null,
+    errorMessage: '',
 };
 
 const mapStateToProps = (state) => {

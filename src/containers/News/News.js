@@ -49,7 +49,7 @@ class News extends Component {
 
 News.propTypes = {
     isLoading: bool.isRequired,
-    errorMessage: string.isRequired,
+    errorMessage: string,
     fetchNews: func.isRequired,
     news: arrayOf(
         shape({
@@ -60,6 +60,7 @@ News.propTypes = {
 
 News.defaultProps = {
     news: [],
+    errorMessage: '',
 };
 
 function mapStateToProps(state) {
