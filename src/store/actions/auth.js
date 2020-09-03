@@ -3,13 +3,7 @@ import { authApi } from '../../api';
 
 export const auth = (user) => (dispatch) => {
     dispatch({ type: AUTH_START });
-    authApi(user)
-        .then((res) => {
-            if (res.status !== 200) {
-                throw Error(res.statusText);
-            }
-            return res;
-        })
+    return authApi(user)
         .then(({ data }) => {
             if (data.status === 'err') {
                 dispatch({
@@ -17,12 +11,12 @@ export const auth = (user) => (dispatch) => {
                     payload: data.message,
                     error: true,
                 });
-                return;
+            } else {
+                dispatch({
+                    type: AUTH_SUCCESS,
+                    payload: data.data.id,
+                });
             }
-            dispatch({
-                type: AUTH_SUCCESS,
-                payload: data.data.id,
-            });
         })
         .catch((err) =>
             dispatch({
