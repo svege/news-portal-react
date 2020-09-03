@@ -1,14 +1,14 @@
-import reducer, { initialState } from '../../store/reducers/news';
+import reducer, { initialState } from '../../store/reducers/profile';
 import {
-    FETCH_NEWS_START,
-    FETCH_NEWS_SUCCESS,
-    FETCH_NEWS_FAILURE,
+    FETCH_USER_INFO_START,
+    FETCH_USER_INFO_SUCCESS,
+    FETCH_USER_INFO_FAILURE,
 } from '../../store/actions/actionTypes';
 
-describe('news reducer', () => {
-    it('FETCH_NEWS_START no error', () => {
+describe('profile reducer', () => {
+    it('FETCH_USER_INFO_START no error', () => {
         const action = {
-            type: FETCH_NEWS_START,
+            type: FETCH_USER_INFO_START,
         };
 
         expect(reducer(initialState, action)).toEqual({
@@ -18,16 +18,16 @@ describe('news reducer', () => {
         });
     });
 
-    it('FETCH_NEWS_START after error', () => {
+    it('FETCH_USER_INFO_START after error', () => {
         // eslint-disable-next-line no-shadow
         const initialState = {
-            news: null,
+            profile: null,
             isLoading: true,
             errorMessage: 'error',
         };
 
         const action = {
-            type: FETCH_NEWS_START,
+            type: FETCH_USER_INFO_START,
         };
 
         expect(reducer(initialState, action)).toEqual({
@@ -37,37 +37,40 @@ describe('news reducer', () => {
         });
     });
 
-    it('FETCH_NEWS_SUCCESS', () => {
+    it('FETCH_USER_INFO_SUCCESS', () => {
         // eslint-disable-next-line no-shadow
         const initialState = {
-            data: null,
+            profile: null,
             isLoading: true,
             errorMessage: null,
         };
 
         const action = {
-            type: FETCH_NEWS_SUCCESS,
+            type: FETCH_USER_INFO_SUCCESS,
             isLoading: true,
-            payload: [1, 2, 3],
+            payload: {
+                id: 2,
+                name: 'smth',
+            },
         };
 
         expect(reducer(initialState, action)).toEqual({
             ...initialState,
             isLoading: false,
-            news: action.payload,
+            profile: action.payload,
         });
     });
 
     it('FETCH_NEWS_FAILURE', () => {
         // eslint-disable-next-line no-shadow
         const initialState = {
-            news: null,
+            profile: null,
             isLoading: true,
             errorMessage: null,
         };
 
         const action = {
-            type: FETCH_NEWS_FAILURE,
+            type: FETCH_USER_INFO_FAILURE,
             isLoading: false,
             payload: 'error',
         };

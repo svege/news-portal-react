@@ -1,14 +1,15 @@
-import reducer, { initialState } from '../../store/reducers/news';
+import reducer, { initialState } from '../../store/reducers/auth';
 import {
-    FETCH_NEWS_START,
-    FETCH_NEWS_SUCCESS,
-    FETCH_NEWS_FAILURE,
+    AUTH_START,
+    AUTH_SUCCESS,
+    AUTH_FAILURE,
+    LOGOUT,
 } from '../../store/actions/actionTypes';
 
-describe('news reducer', () => {
-    it('FETCH_NEWS_START no error', () => {
+describe('profile reducer', () => {
+    it('AUTH_START no error', () => {
         const action = {
-            type: FETCH_NEWS_START,
+            type: AUTH_START,
         };
 
         expect(reducer(initialState, action)).toEqual({
@@ -18,56 +19,62 @@ describe('news reducer', () => {
         });
     });
 
-    it('FETCH_NEWS_START after error', () => {
+    it('AUTH_START after error', () => {
         // eslint-disable-next-line no-shadow
         const initialState = {
-            news: null,
+            isAuthed: false,
+            userId: null,
             isLoading: true,
             errorMessage: 'error',
         };
 
         const action = {
-            type: FETCH_NEWS_START,
+            type: AUTH_START,
         };
 
         expect(reducer(initialState, action)).toEqual({
             ...initialState,
+            isAuthed: false,
             isLoading: true,
             errorMessage: null,
         });
     });
 
-    it('FETCH_NEWS_SUCCESS', () => {
+    it('AUTH_SUCCESS', () => {
         // eslint-disable-next-line no-shadow
         const initialState = {
-            data: null,
+            isAuthed: true,
+            userId: null,
             isLoading: true,
             errorMessage: null,
         };
 
         const action = {
-            type: FETCH_NEWS_SUCCESS,
+            type: AUTH_SUCCESS,
             isLoading: true,
-            payload: [1, 2, 3],
+            payload: '123',
         };
 
         expect(reducer(initialState, action)).toEqual({
             ...initialState,
+            isAuthed: true,
             isLoading: false,
-            news: action.payload,
+            userId: action.payload,
         });
     });
 
     it('FETCH_NEWS_FAILURE', () => {
         // eslint-disable-next-line no-shadow
         const initialState = {
-            news: null,
+            isAuthed: false,
+            userId: null,
             isLoading: true,
             errorMessage: null,
         };
 
         const action = {
-            type: FETCH_NEWS_FAILURE,
+            type: AUTH_FAILURE,
+            isAuthed: false,
             isLoading: false,
             payload: 'error',
         };
@@ -76,6 +83,27 @@ describe('news reducer', () => {
             ...initialState,
             isLoading: false,
             errorMessage: action.payload,
+        });
+    });
+
+    it('LOGOUT', () => {
+        // eslint-disable-next-line no-shadow
+        const initialState = {
+            isAuthed: true,
+            userId: 'smth',
+            isLoading: false,
+            errorMessage: null,
+        };
+
+        const action = {
+            type: LOGOUT,
+        };
+
+        expect(reducer(initialState, action)).toEqual({
+            ...initialState,
+            isAuthed: false,
+            userId: null,
+            errorMessage: null,
         });
     });
 });

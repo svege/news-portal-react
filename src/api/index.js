@@ -1,21 +1,21 @@
 import axios from 'axios';
-import { API, NEWS_API, AUTH_API, USER_API } from './constants';
+import { API_ROOT, NEWS_API, AUTH_API, USER_API } from './constants';
 
 export const fetchNewsApi = () => {
     return axios({
         method: 'get',
-        url: API + NEWS_API,
+        url: API_ROOT + NEWS_API,
     });
 };
 
-export const authApi = (data) => {
+export const authApi = (user) => {
     return axios({
         method: 'post',
-        url: API + AUTH_API,
+        url: API_ROOT + AUTH_API,
         headers: { 'content-type': 'application/json' },
         data: {
-            email: data.username,
-            password: data.password,
+            email: user.username,
+            password: user.password,
         },
     });
 };
@@ -23,6 +23,6 @@ export const authApi = (data) => {
 export const fetchUserInfoApi = (id) => {
     return axios({
         method: 'get',
-        url: `${API + USER_API}/${id}`,
+        url: `${API_ROOT + USER_API}/${id}`,
     });
 };

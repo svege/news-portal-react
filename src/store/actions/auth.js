@@ -21,7 +21,7 @@ export const auth = (user) => (dispatch) => {
             }
             dispatch({
                 type: AUTH_SUCCESS,
-                payload: data.data,
+                payload: data.data.id,
             });
         })
         .catch((err) =>
@@ -33,8 +33,6 @@ export const auth = (user) => (dispatch) => {
         );
 };
 
-export const logout = () => (dispatch) => {
-    dispatch({
-        type: LOGOUT,
-    });
-};
+export const logout = () => ({
+    type: LOGOUT,
+});
