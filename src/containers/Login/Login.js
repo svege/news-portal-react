@@ -21,18 +21,20 @@ class Login extends Component {
         },
     };
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        const { errorMessage } = nextProps;
-
-        if (errorMessage === 'wrong_email_or_password') {
-            return {
+    componentDidUpdate(nextProps, prevState) {
+        const { errorMessage } = this.props;
+        if (
+            errorMessage !== nextProps.errorMessage &&
+            errorMessage === 'wrong_email_or_password'
+        ) {
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState({
                 user: {
                     ...prevState.user,
                     password: '',
                 },
-            };
+            });
         }
-        return null;
     }
 
     onInputChange = (e) => {
