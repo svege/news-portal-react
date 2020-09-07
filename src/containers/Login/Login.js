@@ -112,12 +112,13 @@ class Login extends Component {
 Login.propTypes = {
     isAuthed: bool.isRequired,
     isLoading: bool,
-    errorMessage: string.isRequired,
+    errorMessage: string,
     auth: func.isRequired,
 };
 
 Login.defaultProps = {
     isLoading: false,
+    errorMessage: '',
 };
 
 const mapStateToProps = (state) => {

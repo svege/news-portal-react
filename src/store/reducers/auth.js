@@ -5,11 +5,11 @@ import {
     LOGOUT,
 } from '../actions/actionTypes';
 
-const initialState = {
+export const initialState = {
     userId: null,
     isLoading: false,
     isAuthed: false,
-    errorMessage: '',
+    errorMessage: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -18,17 +18,19 @@ export default (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: true,
-                errorMessage: '',
+                errorMessage: null,
             };
         case AUTH_SUCCESS:
             return {
-                userId: payload.id,
+                ...state,
+                userId: payload,
                 isLoading: false,
                 isAuthed: true,
-                errorMessage: '',
+                errorMessage: null,
             };
         case AUTH_FAILURE:
             return {
+                ...state,
                 userId: null,
                 isLoading: false,
                 isAuthed: false,
@@ -36,9 +38,10 @@ export default (state = initialState, { type, payload }) => {
             };
         case LOGOUT:
             return {
+                ...state,
                 userId: null,
                 isAuthed: false,
-                errorMessage: '',
+                errorMessage: null,
             };
         default:
             return state;

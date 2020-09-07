@@ -29,9 +29,10 @@ class Profile extends Component {
                         Знание языков
                     </h3>
                     <ul>
-                        {user.languages.map((item) => (
-                            <li key={item}>{item}</li>
-                        ))}
+                        {user.languages &&
+                            user.languages.map((item) => (
+                                <li key={item}>{item}</li>
+                            ))}
                     </ul>
                 </div>
                 <div className="mb-3">
@@ -39,16 +40,17 @@ class Profile extends Component {
                         Контакты
                     </h3>
                     <ul>
-                        {user.social.map((item) => (
-                            <li key={item.label}>
-                                <a
-                                    href={item.link}
-                                    className="has-text-primary is-capitalized"
-                                >
-                                    {item.label}
-                                </a>
-                            </li>
-                        ))}
+                        {user.social &&
+                            user.social.map((item) => (
+                                <li key={item.label}>
+                                    <a
+                                        href={item.link}
+                                        className="has-text-primary is-capitalized"
+                                    >
+                                        {item.label}
+                                    </a>
+                                </li>
+                            ))}
                     </ul>
                 </div>
             </>
@@ -73,7 +75,7 @@ class Profile extends Component {
 Profile.propTypes = {
     id: number.isRequired,
     isLoading: bool.isRequired,
-    errorMessage: string.isRequired,
+    errorMessage: string,
     profile: shape({
         city: string.isRequired,
         languages: arrayOf(string.isRequired).isRequired,
@@ -89,6 +91,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
     profile: null,
+    errorMessage: '',
 };
 
 const mapStateToProps = (state) => {
